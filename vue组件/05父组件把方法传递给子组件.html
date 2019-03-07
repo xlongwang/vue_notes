@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+           <!-- 父组件向子组件传递方法，使用事件绑定机制 -->
+           <com2 @func="show" />
+      </div>
+
+      <template id="tmp1">
+           <div>
+                <h1>这是子组件</h1>
+                <input type="button" value="这是子组件中的按钮，点击它触发 父组件传递过来的 func" @click="myclick" />
+           </div>
+      </template>
+</body>
+<script>
+
+var com2 = {
+    template: "#tmp1",
+    data(){
+        return{
+            sonmsg:{
+                name:'小头儿子',
+                age: 6
+            }
+        }
+    },
+    methods:{
+        myclick(){
+            // emit 英文愿意是： 触发，调用，发射的意思 
+            // 调用并传参
+            this.$emit('func', this.sonmsg)
+        }
+    }
+}
+    
+var vm = new Vue({
+    el: '#app',
+    data:{
+        msg:'这里父组件中的数据 ',
+        datamsgfromson: ''
+     },
+    
+    methods:{
+        show(data){
+            console.log('这是父组件的show 方法:----')
+
+            // 通过参数子组件向父组件传值
+            this.datamsgfromson = data
+            console.log( this.datamsgfromson)
+        }
+    },
+
+    components:{   
+        com2 
+    }
+  })
+  
+</script>
+</html>

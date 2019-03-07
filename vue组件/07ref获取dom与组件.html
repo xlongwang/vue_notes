@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+          <!-- 子组件默认访问不到你组件的 data  -->
+          <login ref="mylogin"></login> 
+          <input ref="mybtn" type="button" value="测试ref" @click="getmsg"> 
+      </div>
+
+      <template id="tmpl">
+            <h1>这是一个登录组件 </h1>
+      </template>
+</body>
+<script>
+var login = {
+    data(){
+        return{
+            msg:"son message"
+        }
+    },
+    template: "#tmpl"
+    
+}
+var vm = new Vue({
+    el: '#app',
+    data:{
+        msg:'这里父组件中的数据 '
+     },
+
+    components:{   
+        login
+    },
+    methods:{
+        getmsg(){
+            console.log(this.$refs.mylogin.msg)
+        }
+    }
+   
+  })
+  
+</script>
+</html>

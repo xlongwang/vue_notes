@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+    <title>列表动画</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .form{
+           padding: 20px;
+         }
+        li{
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            border: 1px dashed #eee;
+            list-style-type: none;
+            transition: all .3s;
+        }
+        li:hover{
+            background-color: #eee;
+        }
+       .v-enter,
+       .v-leave-to{
+           opacity: 0;
+           transform: translateY(80px);
+       }
+
+       .v-enter-active,
+       .v-leave-active{
+            transition: all .6s ease;
+       }
+
+        /* 下面的 .v-move 和 .v-leave-active 配合使用，能够实现列表后续的元素渐渐的漂上来 */
+       .v-move{
+           transition: all .3s ease;   
+       }
+
+       .v-leave-active{
+           position: absolute
+       }
+    </style>
+</head>
+<body>
+    <div class="wrap" id="app">
+         <div class="form">
+               <label for="">
+                    id:
+                    <input v-model="id" type="text" >
+               </label>
+               <label for="">
+                    name:
+                    <input v-model="name" type="text">
+               </label>
+               <input type="button" value="添加" @click="add">
+               
+         </div>
+         <!-- <ul class="list_wp"> -->
+                <!-- transition-group添加 appear属性 实现页面入场效果 -->
+                <!-- tag 指定transition-group 渲染为指定元素，如果不指定 默认为 span  -->
+                <transition-group appear tag="ul">
+                    <li v-for="(item, index) in list" :key="item.id" @click="del(item.id)">
+                        {{ index }} --- {{ item.name }}
+                    </li>
+                </transition-group>
+         <!-- </ul> -->
+    </div>
+</body>
+
+<script>
+
+  var vm = new Vue({
+       el:"#app",
+       data(){
+           return{
+              id:'',
+              name:'',
+              keywords:'',
+              list:[
+                  {id: 1, name: "奔馳" },
+                  {id: 2, name: "寶駿" }
+                //   {id: 3, name: "法拉利", time: new Date()},
+                //   {id: 4, name: "五凌宏光", time: new Date()},
+                //   {id: 5, name: "马沙拉帝", time: new Date()}
+              ]
+           }
+       },
+       methods:{
+           add(){
+           
+                if(this.id == "" || this.name == "") return;
+                this.list.push({id: this.id, name: this.name})
+                console.log('333')
+                this.id = this.name = ''
+            },
+            del(obj){
+       
+                // 注意 findIndex filter some  forEach 都是数组遍历的新方法 都会对数组的每一项进行遍历执行相关的操作
+                var a = this.list.findIndex(item => item.id == obj);
+                this.list.splice(a,1);
+       
+            
+            },
+
+       },
+        // 私有指令
+        directives: {
+            'fontweigth':{
+                bind: function(el, binding){
+                el.style.fontWeight = binding.value;
+                }
+            }
+        }
+
+  })
+</script>
+</html>

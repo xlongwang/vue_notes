@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+           <!-- <span @click="flag= true">登录</span>
+           <span @click="flag = false">注册</span>
+           <login v-if="flag" ></login>
+           <register v-else></register> -->
+ 
+            <!-- Vue 提供了 component ,来展示对应名称的组件 -->
+            <!-- component 是一个点位符，:is 可以来指定展示组件的名称 -->
+
+
+            <a href="#" @click.prevent="comName= 'login'">登录</a>
+            <a href="#" @click.prevent="comName='register'">注册</a>
+            <component :is="comName"></component>
+
+            <!-- 已学习的vue标签 -->
+             
+      </div>
+
+
+      <!-- 创建的组件方式3 -->
+      <template id="templ1">
+           <div>
+                 <h1>登录组件</h1> 
+           </div>
+      </template>
+
+      <template id="templ2">
+          <div>
+               <h1>注册组件</h1>
+          </div>
+     </template>
+
+     <login></login>
+</body>
+<script>
+
+
+
+// 创建的组件方式3
+Vue.component('login', {
+    template: "#templ1"
+})
+
+Vue.component('register', {
+    template: "#templ2"
+})
+
+var login = {
+     template: "<h1>123456</h1>"
+}
+
+var vm = new Vue({
+    el: '#app',
+    data:{
+       flag: true,
+       comName: 'login'  //当前 component 中的 :is  绑定的组件的名称
+     },
+
+    components:{   //定义实例内部私有组件的
+          // 组件的名称： 组件的模板对象
+          login
+    }
+  })
+  
+</script>
+</html>

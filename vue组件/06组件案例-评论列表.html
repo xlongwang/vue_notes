@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- 第三方动效 -->
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+          <div class="container">
+                <comment @func="loadComment"></comment>
+                <ul class="list-group">
+                    <li v-for="item in list" class="list-group-item d-flex justify-content-between align-items-center">
+                         {{ item.content }}
+                        <span class="badge badge-secondary badge-pill">{{ item.name }}</span>
+                    </li>
+                </ul>
+          </div>
+
+      </div>
+
+      <template id="tmpl">
+           <div>
+                <form>
+                    <div class="form-group">
+                    <label for="name">评论人：</label>
+                          <input type="text" class="form-control" v-model="name" id="name" placeholder="输入名字">
+                    </div>
+                    <div class="form-group">
+                    <label for="conent">评论内容：</label>
+                        <textarea type="password" class="form-control" v-model="content" id="conent"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" @click="postComment">发表</button>
+                    </div>
+                </form>
+           </div>
+      </template>
+</body>
+<script>
+
+var comment = {
+    template:"#tmpl",
+    data(){
+        return{
+             name:'',
+             content:''
+        }
+    },
+    methods:{
+        postComment(){
+            if(this.name == "" || this.content =="") {
+                 alert("名字或者内容未填，请重新输入")
+                 return
+            }
+            var comment =  { id: Date.now(), name:this.name,  content: this.content }
+            
+            var list = JSON.parse(localStorage.getItem('cmts') || "[]");
+            list.unshift(comment)
+            localStorage.setItem('cmts', JSON.stringify(list));
+            this.$emit('func')
+            this.name = this.content = ""
+             
+        }
+    }
+    
+}
+
+var vm = new Vue({
+    el: '#app',
+    data:{
+       list:[]
+     },
+    
+    methods:{
+       loadComment(){
+           this.list = JSON.parse(localStorage.getItem('cmts') || "[]")
+       }
+    },
+    created(){
+        this.loadComment()
+    },
+    components:{   
+        comment
+    }
+  })
+  
+</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>名称案例</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+     <div id="app">
+
+        <div class="container">            
+              <div class="panel-body">
+                    <!-- form-inline -->
+                    <div class="form-group">
+                        <label>firstName: </label>
+                        <input type="text" class="form-control" v-model="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label>lastName: </label>
+                        <input type="text" class="form-control" v-model="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label>fullName: </label>
+                        <input type="text" class="form-control" v-model="fullName">
+                    </div>
+            </div>
+        </div>
+
+    </div>
+     
+
+
+</body>
+<script>
+    var login = {
+        template: "#login"
+    }
+    var register = {
+        template: "#register"
+    }
+    var vm = new Vue({
+         el: "#app",
+         data:{
+             firstName: "",
+             lastName: ""
+         },
+         methods:{
+            //  用keyup监听input value , 只适用于有事情的元素监听
+            //  calc(){
+            //       this.fullName = this.firstName + "-" + this.lastName
+            //  }
+         },
+         computed: {  
+              // 注意1：自定义一些属性， 叫计算属性。 是一个方法，只不过在使用 这些计算属性的时候，
+              // 是把它们的名称直接当作属性来使用，并不会把计算属性当做方法去调用
+
+              // 注意2：计算属性引用的时候，一定不要加()，直接把它 当作普通属性去使用就好
+              // 注意3：只要 function 内部，所用到的任何 data 中的数据发生了变化，就会立即重新计算这个计算属性的值
+              // 注意4：计算属性的求值结果，会被缓存起来，方便下次直接使用，如果计算属性方法中，所有来的任何数据，
+              // 都没有发生变化，则不会重新对计算属性求值
+              'fullName': function(){
+                  return this.firstName +"-"+ this.lastName
+              }
+
+         }
+    })
+</script>
+</html>

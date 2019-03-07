@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+          .v-enter,
+          .v-leave-to{
+               opacity: 0;
+               transform: translateX(150px)
+          }
+
+          .v-enter-active,
+          .v-leave-active{
+              transition: all .3s ease;
+          }
+    </style>
+</head>
+<body>
+      <div id="app">   
+
+            <a href="#" @click.prevent="comName= 'login'">登录</a>
+            <a href="#" @click.prevent="comName='register'">注册</a>
+
+            <!-- 通过mode 属性，选择组件切换的方式 -->
+            <transition mode="out-in">
+                 <component :is="comName"></component>
+            </transition>
+       
+      </div>
+
+
+      <!-- 创建的组件方式3 -->
+      <template id="templ1">
+           <div>
+                 <h1>登录组件</h1> 
+           </div>
+      </template>
+
+      <template id="templ2">
+          <div>
+               <h1>注册组件</h1>
+          </div>
+     </template>
+</body>
+<script>
+
+
+
+// 创建的组件方式3
+Vue.component('login', {
+    template: "#templ1"
+})
+
+Vue.component('register', {
+    template: "#templ2"
+})
+
+var vm = new Vue({
+    el: '#app',
+    data:{
+       flag: true,
+       comName: 'login'  //当前 component 中的 :is  绑定的组件的名称
+     },
+
+    components:{   //定义实例内部私有组件的
+        
+    }
+  })
+  
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+           <!-- 使用组件方式1 -->
+           <my-com1></my-com1>
+
+           <!-- 使用组件方式2 -->
+           <my-Com2></my-Com2>
+
+            <!-- 使用组件方式3 -->
+           <my-com3></my-com3>
+      </div>
+
+
+      <!-- 创建的组件方式3 -->
+      <template id="templ">
+           <div>
+                 <h1>这是能过 template 元素，在外部定义的组件</h1>
+                 <h4>好用，不错</h4>
+           </div>
+      </template>
+</body>
+<script>
+
+// 创建的组件方式1
+var com1 = Vue.extend({
+        template: '<h3>这是使用 Vue.extend 创建的组件方式1 </h3>'   //通过 template 属性，指定了组件要展示的HTML结构
+    })
+// 1.2 使用  Vue.component('组件的名称，创建出来的组件模板对象')
+Vue.component('myCom1', com1)
+
+
+// 创建的组件方式2
+Vue.component('myCom2', {
+     template: "<h3>这是使用 Vue.extend 创建的组件方式2 </h3>"
+})
+
+// 创建的组件方式3
+Vue.component('myCom3', {
+    template: "#templ"
+})
+
+var vm = new Vue({
+    el: '#app',
+    data:{
+
+    },
+
+    components:{   //定义实例内部私有组件的
+         login: {
+              template: "<h1>login的私有组件 </h1>"
+         }
+    }
+  })
+  
+</script>
+</html>

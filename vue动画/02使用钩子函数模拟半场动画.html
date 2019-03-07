@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+    <title>小球动画</title>
+     <style>
+         .ball{
+             width: 15px;
+             height: 15px;
+             border-radius: 15px;
+             background-color: rgba(255,0,0,.7);
+             display: block;
+         }
+     </style>
+</head>
+<body>
+       <div class="container" id="app">
+            <button type="text" class="btn btn-primary" @click="flag = !flag">{{ msg }}</button>
+            <transition
+                @before-enter = "beforeEnter"
+                @enter = "enter"
+                @after-enter = "afterEnter"
+            >
+                 <span v-if="flag" class="ball"></span>
+            </transition>
+       </div>
+     
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            msg : "开始动了",
+            flag: false
+        },
+        methods:{
+            beforeEnter: function(el){
+                el.style.transform = "translate(0, 0)"
+            },
+            enter: function(el, done){
+                 el.offsetWidth
+                 el.style.transform = "translate(150px, 400px)"
+                 el.style.transition = "all 1s ease"
+
+                //  done 是afterEnter 函数的引用
+                done()
+            },
+            afterEnter: function(el){
+
+                //1.控制小球的显示与隐藏
+                //2.直接跳过后半场的动画
+                this.flag = !this.flag;
+                // console.log('ok')
+            }
+        }
+    }) 
+</script>
+</html>

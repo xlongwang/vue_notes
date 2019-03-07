@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+    <title>生命周期实例</title>
+</head>
+<body>
+    <div id="app">
+           <input type="button" value="修改" @click="msg = 'NO'">
+           <h3 id="h3">{{ msg }}</h3>
+    </div>
+</body>
+
+<script>
+
+  var vm = new Vue({
+       el:"#app",
+       data(){
+           return{
+                msg: 'OK'
+           }
+       },
+       methods:{
+            show(){
+                console.log('执行了show方法~')
+            }
+       },
+       beforeCreate(){   //第一个生命周期函数，实例完全创建出来之前执行
+            //    console.log(this.msg)
+            //    this.show()
+            // console.log('执行beforeCreate~')
+            // 注意： 在beforeCreate 生命周期函数执行 data methods 都没有初始化
+       },
+       created(){  // 第二个生命周期函数
+        //    console.log('created~')
+        //    console.log(this.msg)
+        //    this.show()
+          // 注意： 在beforeCreate 生命周期函数执行 data methods 都已初始化
+       },
+       beforeMount(){   // 第三个生命周期函数
+           // 只是在内存渲染模板，并没有模板挂载到页面中
+           console.log(document.getElementById('h3').innerText)   //{{ msg }}
+       },
+       mounted(){  // 第四个生命周期函数
+          // 表示内存中的模板已经挂载到页面中，用户可以看到渲染好的页面
+          console.log(document.getElementById('h3').innerText)  //ok
+          //   是创建中最后一个生命周期函数  如果没有其它操作，这个实例就不动。  
+          //   如果要操作dom节点，最早要在mounted 中进行
+       },
+
+       //    接下来是运行中的两个事情 beforeUpdate updated   是组件运行阶段的生命周期函数， 会根据data 数据的改变，有选择性的触发0次到无数次
+       beforeUpdate(){  //这时候表示界面没有更新，数据已经更新了
+           console.log(document.getElementById('h3').innerText)   // OK
+           console.log('data 中的 msg 数据是:' + this.msg)         // NO
+       },
+       updated(){
+            //  页面中的元素 与 数据保持一致
+       } 
+
+  })
+</script>
+</html>

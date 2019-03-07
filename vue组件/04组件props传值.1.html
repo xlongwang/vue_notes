@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件创建方式1</title>
+    <script src='js/vue.js'></script>
+    <!-- 第三方动效 -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- 入场 bounceIn 离场 bounceOut -->
+    <style>
+         
+    </style>
+</head>
+<body>
+      <div id="app">   
+          <!-- 子组件默认访问不到你组件的 data  -->
+          <com1 :parentmsg="msg"></com1>  
+      </div>
+</body>
+<script>
+
+var vm = new Vue({
+    el: '#app',
+    data:{
+        msg:'这里父组件中的数据 '
+     },
+
+    components:{   //定义实例内部私有组件的
+        com1: {
+          data(){
+             return {
+                title: '000000'  // 这里的数据是子组件私有的， 通过ajax 请求回来的数据都可以放在 data 里面 数据可读可写， props 只可读不可重新赋值
+             }
+          },
+          template: '<h1>这是一个子组件 {{ title }}--- {{ parentmsg }}</h1>',
+          props:['parentmsg']  // 把父组件传递过来的 parentmsg 属性， 先在props 数组中定义下
+        }
+    }
+  })
+  
+</script>
+</html>
