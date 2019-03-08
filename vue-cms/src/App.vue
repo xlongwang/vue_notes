@@ -1,45 +1,47 @@
 <template>
-    <div>
-         <headerCom></headerCom>
+    <div class="section_wp">
+          <mt-header fixed title="超市"></mt-header>
           <div class="vue-container">
-               <h1>123</h1>
+                <transition>
+                    <router-view></router-view>
+                </transition>
           </div>
-
-          <nav class="mui-bar mui-bar-tab">
-                <a class="mui-tab-item mui-active" href="#tabbar">
-                    <span class="mui-icon mui-icon-home"></span>
-                    <span class="mui-tab-label">首页</span>
-                </a>
-                <a class="mui-tab-item" href="#tabbar-with-chat">
-                    <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-                    <span class="mui-tab-label">消息</span>
-                </a>
-                <a class="mui-tab-item" href="#tabbar-with-contact">
-                    <span class="mui-icon mui-icon-contact"></span>
-                    <span class="mui-tab-label">通讯录</span>
-                </a>
-                <a class="mui-tab-item" href="#tabbar-with-map">
-                    <span class="mui-icon mui-icon-gear"></span>
-                    <span class="mui-tab-label">设置</span>
-                </a>
-		  </nav>
-                 
+         <tabbar></tabbar>     
     </div>
 </template>
 
 
 <script>
-    import headerCom from "./common/header.vue"
+    import tabbar from "./components/tabbar.vue"
     export default {
-        components:{
-            headerCom
-        }
+        name: "app",
+        components: {
+            tabbar
+         }
     }
 </script>
 
 <style scoped lang="scss">
+    .section_wp{
+        overflow-x: hidden
+    }
     .vue-container{
         padding-top: 40px;
+    }
+    .v-enter{
+        opacity: 0;
+        transform: translateX(100%); 
+    }
+
+     .v-leave-to{
+        opacity: 0;
+        transform: translateX(-100%); 
+        position: absolute;
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+        transition: all .3s ease;
     }
 </style>
 
