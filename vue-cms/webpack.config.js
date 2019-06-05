@@ -142,6 +142,11 @@ module.exports = {
         new webpack.ProvidePlugin({
             'Promise': 'bluebird'
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"mork"'
+            }
+        }),
         new VueLoaderPlugin()
      ]
 }

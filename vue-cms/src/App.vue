@@ -27,6 +27,7 @@
     }
     .vue-container{
         padding-top: 40px;
+        padding-bottom: 60px;
     }
     .v-enter{
         opacity: 0;

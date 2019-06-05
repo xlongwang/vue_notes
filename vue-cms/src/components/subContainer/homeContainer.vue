@@ -7,15 +7,18 @@
                     <mt-swipe-item>2</mt-swipe-item>
                     <mt-swipe-item>3</mt-swipe-item> -->
                      <mt-swipe-item v-for="(item, index) in lunbolist" :key="index">
-                         <a class="swipe-item-link" :href="item.url"><img :src="item.img" /></a>
+                         <a class="swipe-item-link"><img :src="item.img" /></a>
                     </mt-swipe-item>
                </mt-swipe>
           </div>
           <div class="homeNav_container">
                <ul class="mui-table-view mui-grid-view mui-grid-9">
-		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                         <router-link to="/home/newsList">
 		                    <span class="mui-icon mui-icon-home"></span>
-		                    <div class="mui-media-body">新间资讯</div></a></li>
+		                    <div class="mui-media-body">新间资讯</div>
+                         </router-link>
+                    </li>
 		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
 		                    <span class="mui-icon mui-icon-image"><span class="mui-badge">5</span></span>
 		                    <div class="mui-media-body">图片分享</div></a></li>
@@ -52,7 +55,6 @@ export default {
                    let data = result.body;
                    if(data.status == 0){
                         this.lunbolist = data.message;
-                        console.log(this.lunbolist)
                    }else{
                         alert("轮播图接口返回失败")
                    }
@@ -65,14 +67,17 @@ export default {
 <style lang="scss" scoped>
     .swiper_container{
          height: 200px;
+         overflow: hidden;
+         background-color: #160C2E;
+         img{
+              width: 100%;
+              height: 100%;
+         }
     }
     .swipe-item-link{
          display: block;
          height: 100%;
          overflow: hidden;
-         img{
-              height: 100%
-         }
     }
     .homeNav_container{
           .mui-media-body{

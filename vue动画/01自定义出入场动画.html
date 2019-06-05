@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,69 +11,71 @@
     <link rel="stylesheet" href="css/animate.css">
     <!-- 入场 bounceIn 离场 bounceOut -->
     <style>
-           /* v-enter [这是一个时间点] 是进入之前，元素的起始状态，此时还没有开始进入 */
-           /* v-leave-to [这是一个时间点] 是动画离开之后，离开的终止状态，此时，元素动画已经结束 */
-           .v-enter,
-           .v-leave-to{
-               opacity: 0;
-               transform: translateX(80px)
-           }
+        /* v-enter [这是一个时间点] 是进入之前，元素的起始状态，此时还没有开始进入 */
+        /* v-leave-to [这是一个时间点] 是动画离开之后，离开的终止状态，此时，元素动画已经结束 */
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(80px)
+        }
 
-           /* v-enter-active [入场动画的时间段] */
-           /* v-leave-active [高开动画的时间段] */
-           .v-enter-active,
-           .v-leave-active{
-               transition: all .4s;
-           }
+        /* v-enter-active [入场动画的时间段] */
+        /* v-leave-active [高开动画的时间段] */
+        .v-enter-active,
+        .v-leave-active {
+            transition: all .4s;
+        }
 
-           .my-enter,
-           .my-leave-to{
-               opacity: 0;
-               transform: translateY(80px)
-           }
+        .my-enter,
+        .my-leave-to {
+            opacity: 0;
+            transform: translateY(80px)
+        }
 
-           .my-enter-active,
-           .my-leave-active{
-               transition: all .4s;
-           }
+        .my-enter-active,
+        .my-leave-active {
+            transition: all .4s;
+        }
     </style>
 </head>
+
 <body>
-      <div id="app">
-            <button @click="flag = !flag">taggle</button>
-            <transition>
-                <H3 v-if="flag">{{ msg }}</H3>
-            </transition>
+    <div id="app">
+        <button @click="flag = !flag">taggle</button>
+        <transition>
+            <H3 v-if="flag">{{ msg }}</H3>
+        </transition>
 
-            <hr>
+        <hr>
 
-            <button @click="flag2 = !flag2">taggle2</button>
-            <transition name="my">
-                 <H3 v-if="flag2">{{ msg2 }}</H3>
-            </transition>
+        <button @click="flag2 = !flag2">taggle2</button>
+        <transition name="my">
+            <H3 v-if="flag2">{{ msg2 }}</H3>
+        </transition>
 
-            <hr>
-            <!-- 第三方动效 -->
-            <!-- 使用 :duration="毫秒值" 来统一设置入场 和 离场 时候的动画时长  -->
-            <!-- :duration="{ enter: 200, leave: 400}" 来分别设置入场与离场的时长 -->
-            <button @click="flag3 = !flag3">taggle3</button>
-            <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{ enter: 200, leave: 800}">
-                 <H3 v-if="flag3" class="animated">{{ msg2 }}</H3>
-            </transition>
-           
-      </div>
+        <hr>
+        <!-- 第三方动效 -->
+        <!-- 使用 :duration="毫秒值" 来统一设置入场 和 离场 时候的动画时长  -->
+        <!-- :duration="{ enter: 200, leave: 400}" 来分别设置入场与离场的时长 -->
+        <button @click="flag3 = !flag3">taggle3</button>
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{ enter: 200, leave: 800}">
+            <H3 v-if="flag3" class="animated">{{ msg2 }}</H3>
+        </transition>
+
+    </div>
 </body>
 <script>
-  var vm = new Vue({
-       el: '#app',
-       data:{
-           msg: '这是一个H3',
-           msg2: '这是一个H6',
-           flag: true,
-           flag2: true,
-           flag3: true
-       }
-       
-  })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '这是一个H3',
+            msg2: '这是一个H6',
+            flag: true,
+            flag2: true,
+            flag3: true
+        }
+
+    })
 </script>
+
 </html>
