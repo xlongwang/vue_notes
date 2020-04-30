@@ -46,7 +46,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "jsonp": "^0.2.1",
     "mint-ui": "^2.2.13",
     "mockjs": "^1.0.1-beta3",
